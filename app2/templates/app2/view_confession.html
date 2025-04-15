@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlocked Confession</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #0f0c29;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 i {
+            margin-right: 15px;
+            filter: drop-shadow(0 0 10px #fff);
+        }
+
+        .confession-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 90%;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        .confession-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border-left: 3px solid #7f00ff;
+        }
+
+        .share-again {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #7f00ff, #e100ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(127, 0, 255, 0.4);
+            transform: scale(0.95);
+            animation: pulse 2s infinite;
+        }
+
+        .share-again i {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .share-again:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(127, 0, 255, 0.6);
+        }
+
+        .share-again:hover i {
+            transform: rotate(360deg);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.95); }
+            50% { transform: scale(1); }
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: particleMove 5s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes particleMove {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% { opacity: 0.3; }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .confession-text {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .share-again {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1><i class="fas fa-lock-open"></i>Secret Revealed</h1>
+
+    <div class="confession-box">
+        <div class="confession-text">
+            <p>{{ confession.content }}</p>
+        </div>
+    </div>
+
+    <a href="{% url 'share_confession' %}" class="share-again">
+        Share Another to Unlock More
+        <i class="fas fa-redo-alt"></i>
+    </a>
+
+    <script>
+        // Add floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.innerHTML = '✦';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.fontSize = Math.random() * 10 + 5 + 'px';
+            particle.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(particle);
+
+            setTimeout(() => particle.remove(), 5000);
+        }
+
+        setInterval(createParticle, 300);
+    </script>
+</body>
+</html>

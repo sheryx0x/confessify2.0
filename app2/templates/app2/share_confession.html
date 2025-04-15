@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share a Confession</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2A0944, #3B185F);
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin: 1rem 0;
+            text-align: center;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(161, 37, 104, 0.5);
+        }
+
+        h1 i {
+            margin-right: 15px;
+            filter: drop-shadow(0 0 10px #fff);
+        }
+
+        p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards 0.3s;
+        }
+
+        textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #A12568;
+            border-radius: 15px;
+            padding: 1.5rem;
+            font-size: 1.1rem;
+            color: #fff;
+            resize: vertical;
+            min-height: 200px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #FEC260;
+            box-shadow: 0 0 20px rgba(254, 194, 96, 0.3);
+        }
+
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(45deg, #A12568, #FEC260);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(161, 37, 104, 0.4);
+        }
+
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 25px rgba(161, 37, 104, 0.6);
+        }
+
+        button i {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        button:hover i {
+            transform: rotate(90deg);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .floating-emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: particleMove 5s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes particleMove {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% { opacity: 0.3; }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            form {
+                padding: 1.5rem;
+            }
+            
+            textarea {
+                min-height: 150px;
+                font-size: 1rem;
+            }
+            
+            button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1><i class="fas fa-ghost"></i>Whisper Your Secret</h1>
+    <p>Your confession is safe with us. Share to unlock someone else's secret!</p>
+
+
+
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="content" rows="6" placeholder="Type your deepest secret here... ✍️" required></textarea>
+        <button type="submit">
+            Confess & Unlock Mystery
+            <i class="fas fa-key"></i>
+        </button>
+    </form>
+
+    <script>
+        // Add floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.innerHTML = '✦';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.fontSize = Math.random() * 10 + 5 + 'px';
+            particle.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(particle);
+
+            setTimeout(() => particle.remove(), 5000);
+        }
+
+        setInterval(createParticle, 300);
+    </script>
+</body>
+</html>

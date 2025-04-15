@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No More Confessions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63);
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .emoji {
+            animation: bounce 2s infinite;
+            display: inline-block;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            color: #e6e6e6;
+        }
+
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, #7f00ff, #e100ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(127, 0, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-link i {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(127, 0, 255, 0.6);
+        }
+
+        .cta-link:hover i {
+            transform: rotate(360deg);
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating-emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-40px) rotate(180deg); }
+        }
+
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            animation: sparkleMove 3s linear infinite;
+            opacity: 0;
+            font-size: 1.2rem;
+        }
+
+        @keyframes sparkleMove {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100vw);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .cta-link {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles">
+        <!-- Sparkles will be added by JavaScript -->
+    </div>
+
+    <div class="container">
+        <h1>
+            <span class="emoji">🎉</span>
+            That's All For Now!
+        </h1>
+        <p>You've reached the end of currently available secrets</p>
+        <p><i class="fas fa-clock"></i> Check back later for new confessions!</p>
+
+        <div style="margin-top: 2rem;">
+            <a href="{% url 'share_confession' %}" class="cta-link">
+                Share Another Secret
+                <i class="fas fa-redo-alt"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="floating-emoji" style="top:10%; left:5%">🔍</div>
+    <div class="floating-emoji" style="top:80%; left:90%">🤔</div>
+    <div class="floating-emoji" style="top:60%; left:15%">✨</div>
+
+    <script>
+        // Create dynamic sparkles
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = '✦';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            document.querySelector('.sparkles').appendChild(sparkle);
+
+            setTimeout(() => sparkle.remove(), 3000);
+        }
+
+        setInterval(createSparkle, 300);
+
+        // Add random movement to floating emojis
+        document.querySelectorAll('.floating-emoji').forEach(emoji => {
+            emoji.style.animationDuration = Math.random() * 3 + 3 + 's';
+        });
+    </script>
+</body>
+</html>
