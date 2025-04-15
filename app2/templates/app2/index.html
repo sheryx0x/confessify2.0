@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confession 2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2A0944, #3B185F);
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transform: scale(0.95);
+            opacity: 0;
+            animation: containerEntrance 0.8s ease forwards;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #FF6B6B, #FFE66D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1 .emoji {
+            filter: drop-shadow(0 0 10px rgba(255, 235, 109, 0.5));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(45deg, #A12568, #FEC260);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(161, 37, 104, 0.4);
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(161, 37, 104, 0.6);
+        }
+
+        .button::after {
+            content: '🔓';
+            position: absolute;
+            right: -30px;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover::after {
+            right: 20px;
+        }
+
+        /* Animations */
+        @keyframes containerEntrance {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-secret {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0.3;
+            pointer-events: none;
+            animation: secretFloat 15s linear infinite;
+        }
+
+        @keyframes secretFloat {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(150vw, 150vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .button {
+                padding: 1rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+ 
+    <div class="container">
+        <h1>
+            <span class="emoji">💬</span>
+            Confessify 2.0
+        </h1>
+        <p>This is a place where secrets are shared... anonymously.</p>
+        <p>But there's a twist: You can’t read someone else’s confession until you share your own.</p>
+
+        <a class="button" href="{% url 'share_confession' %}">
+            Start Sharing 
+            <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+        </a>
+    </div>
+
+   
+</body>
+</html>

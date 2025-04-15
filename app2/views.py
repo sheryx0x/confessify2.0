@@ -2,6 +2,11 @@ from django.shortcuts import render , redirect
 from .models import*
 import random
 
+
+
+def index(request):
+    return render(request ,"app2/index.html")
+
 def share_confessions(request):
     if request.method=='POST':
         confession_text=request.POST.get('content')
