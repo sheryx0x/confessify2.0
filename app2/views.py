@@ -5,9 +5,11 @@ import random
 
 
 def index(request):
-    return render(request ,"app2/index.html")
+    total_confessions = Confession.objects.count()
+    return render(request, "app2/index.html", {"total_confessions": total_confessions})
 
 def share_confessions(request):
+    total_confessions = Confession.objects.count()
     if request.method=='POST':
         confession_text=request.POST.get('content')
         if confession_text:
@@ -17,7 +19,7 @@ def share_confessions(request):
             request.session['seen_confessions_ids'] = seen_confessions_ids
             return redirect("view_random_confession")
 
-    return render(request, "app2/share_confession.html")
+    return render(request, "app2/share_confession.html", {"total_confessions": total_confessions})
 
 
 def view_random_confession(request):

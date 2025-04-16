@@ -48,6 +48,79 @@
             max-width: 600px;
         }
 
+        .confession-counter {
+            margin: 1.5rem 0;
+            perspective: 1000px;
+        }
+    
+        .counter-box {
+            background: linear-gradient(45deg, #A12568, #FEC260);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(161, 37, 104, 0.4);
+            animation: float 3s ease-in-out infinite;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    
+        .counter-box i {
+            font-size: 2rem;
+            margin-right: 1rem;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+        }
+    
+        .counter-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .counter-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+    
+        .counter-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+    
+        .crown-emoji {
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            font-size: 1.5rem;
+            animation: crownFloat 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+        }
+    
+        @keyframes crownFloat {
+            0%, 100% { transform: translateY(0) rotate(-10deg); }
+            50% { transform: translateY(-10px) rotate(10deg); }
+        }
+    
+        @media (max-width: 768px) {
+            .counter-box {
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .counter-number {
+                font-size: 2rem;
+            }
+            
+            .crown-emoji {
+                font-size: 1.2rem;
+                right: -15px;
+                top: -15px;
+            }
+        }
+
         form {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -183,7 +256,16 @@
     <h1><i class="fas fa-ghost"></i>Whisper Your Secret</h1>
     <p>Your confession is safe with us. Share to unlock someone else's secret!</p>
 
-
+    <div class="confession-counter">
+        <div class="counter-box">
+            <i class="fas fa-scroll"></i>
+            <div class="counter-content">
+                <span class="counter-number">{{ total_confessions }}+</span>
+                <span class="counter-text">Secrets Shared</span>
+            </div>
+            <div class="crown-emoji">👑</div>
+        </div>
+    </div>
 
     <form method="post">
         {% csrf_token %}
